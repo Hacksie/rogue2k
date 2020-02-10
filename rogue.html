@@ -2,15 +2,14 @@
 <script>
 M=Math;E=e=>document.getElementById(e);D=(x,y,w,h,c)=>{G.fillStyle=c;G.fillRect(x,y,w,h)};
 
-RandomInt=(min, max)=>{
-min = Math.ceil(min);
-max = Math.floor(max);
-return M.floor(M.random() * (max - min)) + min;
+RI=(a, b)=>{
+a=M.ceil(a);b=M.floor(b);
+return M.floor(M.random()*(b-a))+a;
 }
 
 
-ml=20;mw=15;mh=15;st=[mh-1,Math.floor(mw/2)]
-cw="#FFF";cd="#0F0"
+ml=20;mw=20;mh=15;st=[Math.floor(mw/2),mh-1]
+cw="#ECC";cd="#B80"
 m=new Array(100);
 start=_=>{
 m[st[1]*mw+st[0]] = "dwww";
@@ -20,9 +19,7 @@ KK = e => {
 
 genmain=(n,l)=>{
 if(l==0) return true;
-// endroom
 if(l==1) {
-//gen room
 m[n[1]*mw+n[0]]=genroom(n,"w");
 return true;
 }
@@ -64,8 +61,7 @@ while(nr)
 
 
 possiblebuildirs=p=>{
-var rm=m[p[1]*mw+p[0]];
-//console.log("xx" + rm);
+rm=m[p[1]*mw+p[0]];
 posdir=[];
 if((rm[0]=='d'||rm[0]=='o')&&!HR([p[0],p[1]-1])) posdir.push([p[0],p[1]-1])
 if((rm[1]=='d'||rm[1]=='o')&&!HR([p[0]-1,p[1]])) posdir.push([p[0]-1,p[1]])
@@ -109,7 +105,7 @@ tops=PT(p,c);
 lefts=PL(p,c);
 bottoms=PB(p,c);
 rights=PR(p,c);
-return tops[RandomInt(0,tops.length)] + lefts[RandomInt(0,lefts.length)] + bottoms[RandomInt(0,bottoms.length)] + rights[RandomInt(0,rights.length)]
+return tops[RI(0,tops.length)] + lefts[RI(0,lefts.length)] + bottoms[RI(0,bottoms.length)] + rights[RI(0,rights.length)]
 }
 
 render=_=>{
@@ -117,16 +113,16 @@ for(h=0;h<mh;h++)
 for(w=0;w<mw;w++){
 if (m[h*mw+w]==undefined) continue;    
 if(m[h*mw+w][0]=="w") D(50+(w*36), 50+(h*36), 36, 6, cw);
-if(m[h*mw+w][0]=="d") D(50+(w*36), 50+(h*36), 6, 6, cw), D(50+(w*36)+6, 50+(h*36), 24, 6, cd),D(50+(w*36)+30, 50+(h*36), 6, 6, cw)
+if(m[h*mw+w][0]=="d") D(50+(w*36), 50+(h*36), 12, 6, cw), D(50+(w*36)+12, 50+(h*36), 12, 6, cd),D(50+(w*36)+24, 50+(h*36), 12, 6, cw)
 if(m[h*mw+w][0]=="o") D(50+(w*36), 50+(h*36), 6, 6, cw), D(50+(w*36)+30, 50+(h*36), 6, 6, cw)
 if(m[h*mw+w][1]=="w") D(50+(w*36), 50+(h*36), 6, 36, cw)
-if(m[h*mw+w][1]=="d") D(50+(w*36), 50+(h*36), 6, 6, cw), D(50+(w*36), 50+(h*36)+6, 6, 24, cd),D(50+(w*36), 50+(h*36)+30, 6, 6, cw)
+if(m[h*mw+w][1]=="d") D(50+(w*36), 50+(h*36), 6, 12, cw), D(50+(w*36), 50+(h*36)+12, 6, 12, cd),D(50+(w*36), 50+(h*36)+24, 6, 12, cw)
 if(m[h*mw+w][1]=="o") D(50+(w*36), 50+(h*36), 6, 6, cw), D(50+(w*36), 50+(h*36)+30, 6, 6, cw)
 if(m[h*mw+w][2]=="w") D(50+(w*36), 50+(h*36)+30, 36, 6, cw);
-if(m[h*mw+w][2]=="d") D(50+(w*36), 50+(h*36)+30, 6, 6, cw), D(50+(w*36)+6, 50+(h*36)+30, 24, 6, cd),D(50+(w*36)+30, 50+(h*36)+30, 6, 6, cw)
+if(m[h*mw+w][2]=="d") D(50+(w*36), 50+(h*36)+30, 12, 6, cw), D(50+(w*36)+12, 50+(h*36)+30, 12, 6, cd),D(50+(w*36)+24, 50+(h*36)+30, 12, 6, cw)
 if(m[h*mw+w][2]=="o") D(50+(w*36), 50+(h*36)+30, 6, 6, cw), D(50+(w*36)+30, 50+(h*36)+30, 6, 6, cw)
 if(m[h*mw+w][3]=="w") D(50+(w*36)+30, 50+(h*36), 6, 36, cw);
-if(m[h*mw+w][3]=="d") D(50+(w*36)+30, 50+(h*36), 6, 6, cw), D(50+(w*36)+30, 50+(h*36)+6, 6, 24, cd),D(50+(w*36)+30, 50+(h*36)+30, 6, 6, cw)       
+if(m[h*mw+w][3]=="d") D(50+(w*36)+30, 50+(h*36), 6, 12, cw), D(50+(w*36)+30, 50+(h*36)+12, 6, 12, cd),D(50+(w*36)+30, 50+(h*36)+24, 6, 12, cw)       
 if(m[h*mw+w][3]=="o") D(50+(w*36)+30, 50+(h*36), 6, 6, cw), D(50+(w*36)+30, 50+(h*36)+30, 6, 6, cw)       
 }
 }
@@ -135,9 +131,7 @@ D(0,0,800,600,"#000");
 render();
 //requestAnimationFrame(R);
 }
-start();genmain([st[0],st[1]-1],ml);
-console.log(m);
-genaux();
+start();genmain([st[0],st[1]-1],ml);genaux();
 
 C=E("c");O=E("o");G=C.getContext("2d");C.tabIndex=1;C.addEventListener("keydown", KK);R(0)
 </script>
